@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [showDemoAccounts, setShowDemoAccounts] = useState(false);
   const navigate = useNavigate();
   const { login, isAuthenticated, loading } = useAuth();
 
@@ -68,10 +69,20 @@ const LoginPage = () => {
           <div className="glass-card space-y-6">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-4">
-                <div>
+                <div className="relative">
                   <label htmlFor="email-address" className="block text-sm font-medium text-white mb-2">
                     Email Address
                   </label>
+                  <div
+                  className="absolute top-0 right-0 flex items-center justify-center w-6 h-6 group"
+                  style={{ backgroundColor: '#d2aa2f', color: 'white', borderRadius: '50%', cursor: 'pointer' }}
+                  onClick={() => setShowDemoAccounts(true)}
+                >
+                  !
+                  <span className="absolute top-full right-0 mt-1 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    Click for Demo Accounts
+                  </span>
+                </div>
                   <input
                     id="email-address"
                     name="email"
@@ -142,34 +153,41 @@ const LoginPage = () => {
             </form>
           </div>
 
-          {/* Demo Credentials */}
-          {/* <div className="glass-card">
-            <h3 className="text-lg font-semibold text-white mb-4 text-center">Demo Accounts</h3>
-            <div className="space-y-3">
-              {demoCredentials.map((cred, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleDemoLogin(cred.email)}
-                  className="w-full p-3 bg-dark-800/50 hover:bg-dark-700/50 border border-dark-600 hover:border-primary-500/50 rounded-lg transition-all duration-200 hover:scale-[1.02] group"
-                >
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{cred.icon}</span>
-                    <div className="flex-1 text-left">
-                      <p className="text-white font-medium group-hover:text-primary-300 transition-colors">
-                        {cred.role}
-                      </p>
-                      <p className="text-dark-400 text-sm">{cred.email}</p>
-                    </div>
-                    <div className="text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                      →
+          {/* Demo Accounts Pop-up */}
+          {showDemoAccounts && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                  <div className="bg-dark-800 p-6 rounded-lg shadow-lg space-y-4 relative">
+                    <button
+                      onClick={() => setShowDemoAccounts(false)}
+                      className="absolute top-2 right-2 text-white hover:text-gray-400"
+                    >
+                      ✕
+                    </button>
+                    <h3 className="text-lg font-semibold text-white">Demo Accounts</h3>
+                    <div className="space-y-3">
+                      {demoCredentials.map((cred, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            setEmail(cred.email);
+                            setPassword('password');
+                            setShowDemoAccounts(false);
+                          }}
+                          className="w-full p-3 bg-dark-700 hover:bg-dark-600 border border-dark-600 rounded-lg transition-all duration-200"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <span className="text-2xl text-primary-400">{cred.icon}</span>
+                            <div className="flex-1 text-left">
+                              <p className="text-white font-medium">{cred.role}</p>
+                              <p className="text-dark-400 text-sm">{cred.email}</p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
                     </div>
                   </div>
-                </button>
-              ))}
-            </div>
-
-          
-          </div> */}
+                </div>
+              )}
 
           {/* Footer */}
           <div className="text-center">
