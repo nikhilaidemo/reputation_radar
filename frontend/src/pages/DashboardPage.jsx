@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SentimentChart from '../components/SentimentChart';
 import { posts, alerts } from '../api';
 
-const DashboardPage = () => {
+const DashboardPage = ({ onRefreshTime }) => {
   const [sentimentData, setSentimentData] = useState([]);
   const [recentAlerts, setRecentAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +46,17 @@ const DashboardPage = () => {
     fetchData();
   }, []);
 
+  const handleRefresh = () => {
+    if (onRefreshTime) {
+      onRefreshTime();
+    }
+    // Optionally, you can also refetch the data here if needed
+  };
+
+  const handleViewAll = () => {
+    navigate('/alerts');
+  };
+
   if (loading) return (
     <div className="flex items-center justify-center h-64">
       <div className="glass rounded-xl p-8 text-center">
@@ -70,13 +83,9 @@ const DashboardPage = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
-          <p className="text-dark-400 mt-2">Real-time insights into your brand's reputation</p>
         </div>
         <div className="flex space-x-3">
-          <button className="btn-secondary text-sm">
-            <span className="mr-2">📊</span> Export Report
-          </button>
-          <button className="btn-primary text-sm">
+          <button className="btn-primary text-sm" onClick={handleRefresh}>
             <span className="mr-2">🔄</span> Refresh Data
           </button>
         </div>
@@ -185,7 +194,7 @@ const DashboardPage = () => {
       <div className="card">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-white">Recent Alerts</h2>
-          <button className="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors">
+          <button onClick={handleViewAll} className="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors">
             View All →
           </button>
         </div>
@@ -204,9 +213,10 @@ const DashboardPage = () => {
               <div key={alert.id} className="flex items-center justify-between p-4 bg-dark-800/50 rounded-lg border border-dark-700 hover:border-dark-600 transition-all duration-200 animate-slide-up" style={{animationDelay: `${index * 100}ms`}}>
                 <div className="flex items-center space-x-4">
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    alert.severity === 'Critical' ? 'bg-danger-500/20 text-danger-400' :
-                    alert.severity === 'High' ? 'bg-warning-500/20 text-warning-400' :
-                    'bg-primary-500/20 text-primary-400'
+                    alert.severity === 'Critical' ? 'bg-red-500/20 text-red-400' :
+                    alert.severity === 'High' ? 'bg-yellow-500/20 text-yellow-400' :
+                    alert.severity === 'Medium' ? 'bg-blue-500/20 text-blue-400' :
+                    'bg-green-500/20 text-green-400'
                   }`}>
                     <span className="text-sm font-bold">
                       {alert.severity === 'Critical' ? '🚨' : alert.severity === 'High' ? '⚠️' : '📢'}
@@ -216,9 +226,10 @@ const DashboardPage = () => {
                     <p className="text-white font-medium">{alert.alert_type}</p>
                     <div className="flex items-center space-x-4 mt-1">
                       <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                        alert.severity === 'Critical' ? 'bg-danger-500/20 text-danger-400' :
-                        alert.severity === 'High' ? 'bg-warning-500/20 text-warning-400' :
-                        'bg-primary-500/20 text-primary-400'
+                        alert.severity === 'Critical' ? 'bg-red-500/20 text-red-400' :
+                        alert.severity === 'High' ? 'bg-yellow-500/20 text-yellow-400' :
+                        alert.severity === 'Medium' ? 'bg-blue-500/20 text-blue-400' :
+                        'bg-green-500/20 text-green-400'
                       }`}>
                         {alert.severity}
                       </span>
@@ -236,9 +247,6 @@ const DashboardPage = () => {
                   }`}>
                     {alert.resolved ? '✓ Resolved' : '⏳ Pending'}
                   </span>
-                  <button className="text-dark-400 hover:text-white transition-colors">
-                    <span className="text-lg">→</span>
-                  </button>
                 </div>
               </div>
             ))}
@@ -251,9 +259,7 @@ const DashboardPage = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-white">Trending Keywords</h2>
           <div className="flex items-center space-x-2 text-sm text-dark-400">
-            <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
-            <span>Updated 5 min ago</span>
-          </div>
+            </div>
         </div>
         
         <div className="flex flex-wrap gap-3">
