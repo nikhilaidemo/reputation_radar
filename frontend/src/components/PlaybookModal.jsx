@@ -21,39 +21,39 @@ const PlaybookModal = ({ isOpen, onClose, onSubmit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
-      <div className="relative p-5 border w-96 shadow-lg rounded-md bg-white">
-        <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">Create New Playbook</h3>
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center">
+      <div className="relative p-5 border w-96 shadow-lg rounded-md bg-gray-800">
+        <h3 className="text-lg font-medium leading-6 text-gray-100 mb-4">Create New Playbook</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="triggerType" className="block text-sm font-medium text-gray-700">Trigger Type</label>
+            <label htmlFor="triggerType" className="block text-sm font-medium text-gray-300">Trigger Type</label>
             <input
               type="text"
               id="triggerType"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border border-gray-600 rounded-md shadow-sm py-2 px-3 bg-gray-700 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={triggerType}
               onChange={(e) => setTriggerType(e.target.value)}
               required
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="sentimentThreshold" className="block text-sm font-medium text-gray-700">Sentiment Threshold</label>
+            <label htmlFor="sentimentThreshold" className="block text-sm font-medium text-gray-300">Sentiment Threshold</label>
             <input
               type="number"
               step="0.1"
               id="sentimentThreshold"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border border-gray-600 rounded-md shadow-sm py-2 px-3 bg-gray-700 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={sentimentThreshold}
               onChange={(e) => setSentimentThreshold(e.target.value)}
               required
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="templateText" className="block text-sm font-medium text-gray-700">Template Text</label>
+            <label htmlFor="templateText" className="block text-sm font-medium text-gray-300">Template Text</label>
             <textarea
               id="templateText"
               rows="4"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border border-gray-600 rounded-md shadow-sm py-2 px-3 bg-gray-700 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={templateText}
               onChange={(e) => setTemplateText(e.target.value)}
               required
@@ -63,7 +63,7 @@ const PlaybookModal = ({ isOpen, onClose, onSubmit }) => {
             <button
               type="button"
               onClick={onClose}
-              className="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Cancel
             </button>

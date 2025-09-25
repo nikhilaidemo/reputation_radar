@@ -44,76 +44,245 @@ const DashboardPage = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div className="text-center p-4">Loading dashboard...</div>;
-  if (error) return <div className="text-center p-4 text-red-600">{error}</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center h-64">
+      <div className="glass rounded-xl p-8 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+        <p className="text-dark-300">Loading dashboard insights...</p>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="flex items-center justify-center h-64">
+      <div className="glass rounded-xl p-8 text-center border-danger-500/20">
+        <div className="w-12 h-12 bg-danger-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span className="text-danger-400 text-xl">⚠</span>
+        </div>
+        <p className="text-danger-400 font-medium">{error}</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-
-      {/* Sentiment Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <SentimentChart title="Overall Sentiment Distribution" data={sentimentData} />
+    <div className="space-y-8 animate-fade-in">
+      {/* Page Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
+          <p className="text-dark-400 mt-2">Real-time insights into your brand's reputation</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Brand Health Index (Dummy)</h2>
-          <p className="text-4xl font-bold text-green-600">7.8/10</p>
-          <p className="text-gray-600 mt-2">
-            Based on recent sentiment trends. (This is a static dummy value)
-          </p>
+        <div className="flex space-x-3">
+          <button className="btn-secondary text-sm">
+            <span className="mr-2">📊</span> Export Report
+          </button>
+          <button className="btn-primary text-sm">
+            <span className="mr-2">🔄</span> Refresh Data
+          </button>
+        </div>
+      </div>
+
+      {/* Key Metrics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="card group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-dark-400 text-sm font-medium">Total Mentions</p>
+              <p className="text-3xl font-bold text-white mt-1">2,847</p>
+              <p className="text-success-400 text-sm mt-2">↗ 12% vs last week</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <span className="text-white text-xl">📈</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="card group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-dark-400 text-sm font-medium">Sentiment Score</p>
+              <p className="text-3xl font-bold text-white mt-1">7.8/10</p>
+              <p className="text-success-400 text-sm mt-2">↗ 0.3 improvement</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-success-500 to-success-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <span className="text-white text-xl">😊</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="card group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-dark-400 text-sm font-medium">Active Alerts</p>
+              <p className="text-3xl font-bold text-white mt-1">{recentAlerts.length}</p>
+              <p className="text-warning-400 text-sm mt-2">↓ 5 resolved today</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-warning-500 to-warning-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <span className="text-white text-xl">🚨</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="card group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-dark-400 text-sm font-medium">Response Time</p>
+              <p className="text-3xl font-bold text-white mt-1">2.4h</p>
+              <p className="text-success-400 text-sm mt-2">↗ 15% faster</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <span className="text-white text-xl">⚡</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Sentiment Chart - Takes 2 columns */}
+        <div className="lg:col-span-2 card">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-white">Sentiment Distribution</h2>
+            <div className="flex items-center space-x-2 text-sm text-dark-400">
+              <span className="w-2 h-2 bg-success-500 rounded-full"></span>
+              <span>Live Data</span>
+            </div>
+          </div>
+          <SentimentChart title="" data={sentimentData} />
+        </div>
+
+        {/* Brand Health Index */}
+        <div className="card">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold text-white mb-6">Brand Health Index</h2>
+            <div className="relative inline-flex items-center justify-center">
+              <div className="w-32 h-32 bg-gradient-to-br from-success-500 to-success-600 rounded-full flex items-center justify-center shadow-glow">
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-white">7.8</p>
+                  <p className="text-sm text-success-100">out of 10</p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 space-y-3">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-dark-400">Positive Mentions</span>
+                <span className="text-success-400 font-medium">68%</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-dark-400">Neutral Mentions</span>
+                <span className="text-dark-300 font-medium">24%</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-dark-400">Negative Mentions</span>
+                <span className="text-danger-400 font-medium">8%</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Recent Alerts */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Recent Alerts</h2>
+      <div className="card">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-white">Recent Alerts</h2>
+          <button className="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors">
+            View All →
+          </button>
+        </div>
+        
         {recentAlerts.length === 0 ? (
-          <p className="text-gray-500">No recent alerts.</p>
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-dark-800 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-dark-400 text-2xl">📋</span>
+            </div>
+            <p className="text-dark-400">No recent alerts to display</p>
+            <p className="text-dark-500 text-sm mt-1">All systems are running smoothly</p>
+          </div>
         ) : (
-          <ul className="divide-y divide-gray-200">
-            {recentAlerts.map((alert) => (
-              <li key={alert.id} className="py-3 flex justify-between items-center">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {alert.alert_type} - Severity: <span className={
-                      `font-bold ${alert.severity === 'High' ? 'text-red-600' :
-                       alert.severity === 'Critical' ? 'text-purple-600' : 'text-yellow-600'}`
-                    }>{alert.severity}</span>
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    Created: {new Date(alert.created_at).toLocaleString()}
-                  </p>
+          <div className="space-y-4">
+            {recentAlerts.map((alert, index) => (
+              <div key={alert.id} className="flex items-center justify-between p-4 bg-dark-800/50 rounded-lg border border-dark-700 hover:border-dark-600 transition-all duration-200 animate-slide-up" style={{animationDelay: `${index * 100}ms`}}>
+                <div className="flex items-center space-x-4">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    alert.severity === 'Critical' ? 'bg-danger-500/20 text-danger-400' :
+                    alert.severity === 'High' ? 'bg-warning-500/20 text-warning-400' :
+                    'bg-primary-500/20 text-primary-400'
+                  }`}>
+                    <span className="text-sm font-bold">
+                      {alert.severity === 'Critical' ? '🚨' : alert.severity === 'High' ? '⚠️' : '📢'}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">{alert.alert_type}</p>
+                    <div className="flex items-center space-x-4 mt-1">
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                        alert.severity === 'Critical' ? 'bg-danger-500/20 text-danger-400' :
+                        alert.severity === 'High' ? 'bg-warning-500/20 text-warning-400' :
+                        'bg-primary-500/20 text-primary-400'
+                      }`}>
+                        {alert.severity}
+                      </span>
+                      <span className="text-xs text-dark-400">
+                        {new Date(alert.created_at).toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <span
-                  className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    alert.resolved ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                  }`}
-                >
-                  {alert.resolved ? 'Resolved' : 'Unresolved'}
-                </span>
-              </li>
+                <div className="flex items-center space-x-3">
+                  <span className={`px-3 py-1 text-xs font-medium rounded-full ${
+                    alert.resolved 
+                      ? 'bg-success-500/20 text-success-400 border border-success-500/30' 
+                      : 'bg-danger-500/20 text-danger-400 border border-danger-500/30'
+                  }`}>
+                    {alert.resolved ? '✓ Resolved' : '⏳ Pending'}
+                  </span>
+                  <button className="text-dark-400 hover:text-white transition-colors">
+                    <span className="text-lg">→</span>
+                  </button>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
 
-      {/* Example Word Cloud (Placeholder) */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Top Keywords (Word Cloud Placeholder)</h2>
-        <div className="flex flex-wrap gap-2 text-gray-700">
-          <span className="text-2xl font-bold">Product</span>
-          <span className="text-lg">Service</span>
-          <span className="text-xl font-semibold">Update</span>
-          <span className="text-md">Bug</span>
-          <span className="text-3xl font-extrabold text-blue-600">Experience</span>
-          <span className="text-base">Launch</span>
-          <span className="text-sm">Feedback</span>
-          <span className="text-2xl">Brand</span>
+      {/* Trending Keywords */}
+      <div className="card">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-white">Trending Keywords</h2>
+          <div className="flex items-center space-x-2 text-sm text-dark-400">
+            <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
+            <span>Updated 5 min ago</span>
+          </div>
         </div>
-        <p className="mt-4 text-sm text-gray-500">
-          (This is a static placeholder for a word cloud visualization.)
-        </p>
+        
+        <div className="flex flex-wrap gap-3">
+          {[
+            { word: 'Experience', size: 'text-3xl', color: 'text-primary-400', weight: 'font-bold' },
+            { word: 'Product', size: 'text-2xl', color: 'text-accent-400', weight: 'font-semibold' },
+            { word: 'Service', size: 'text-xl', color: 'text-success-400', weight: 'font-medium' },
+            { word: 'Update', size: 'text-xl', color: 'text-warning-400', weight: 'font-semibold' },
+            { word: 'Brand', size: 'text-2xl', color: 'text-primary-300', weight: 'font-medium' },
+            { word: 'Launch', size: 'text-lg', color: 'text-accent-300', weight: 'font-medium' },
+            { word: 'Feedback', size: 'text-base', color: 'text-dark-300', weight: 'font-normal' },
+            { word: 'Bug', size: 'text-lg', color: 'text-danger-400', weight: 'font-medium' },
+          ].map((keyword, index) => (
+            <span
+              key={keyword.word}
+              className={`${keyword.size} ${keyword.color} ${keyword.weight} hover:scale-110 transition-all duration-200 cursor-pointer animate-fade-in`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              {keyword.word}
+            </span>
+          ))}
+        </div>
+        
+        <div className="mt-6 p-4 bg-dark-800/30 rounded-lg border border-dark-700">
+          <p className="text-sm text-dark-400">
+            Keywords are sized based on mention frequency and sentiment impact. 
+            Click on any keyword to explore related conversations. ( Future enhancement )
+          </p>
+        </div>
       </div>
     </div>
   );

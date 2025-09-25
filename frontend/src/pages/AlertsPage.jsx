@@ -51,15 +51,15 @@ const AlertsPage = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Alerts</h1>
+      <h1 className="text-3xl font-bold text-gray-100">Alerts</h1>
 
-      <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-        <label htmlFor="filter-resolved" className="block text-sm font-medium text-gray-700">
+      <div className="bg-gray-800 p-6 rounded-lg shadow-md flex items-center space-x-4">
+        <label htmlFor="filter-resolved" className="block text-sm font-medium text-gray-300">
           Filter by Status:
         </label>
         <select
           id="filter-resolved"
-          className="mt-1 block w-48 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-48 py-2 px-3 border border-gray-600 bg-gray-700 text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           value={filterResolved}
           onChange={(e) => setFilterResolved(e.target.value)}
         >
