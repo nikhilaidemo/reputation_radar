@@ -41,143 +41,142 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-900 via-dark-850 to-dark-800 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 w-60 h-60 bg-success-500/5 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+    <div className="min-h-screen flex">
+      {/* Left Section: Visual Appeal */}
+      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-primary-500 to-accent-500 items-center justify-center relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="/bgimage.png"
+            alt="Background"
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/20 rounded-full blur-2xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/20 rounded-full blur-2xl"></div>
+        </div>
+        <div className="relative z-10 text-center text-white">
+          <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">Reputation Radar</h1>
+          <p className="text-lg drop-shadow-md">Your brand's reputation, monitored and managed.</p>
+        </div>
       </div>
 
-      <div className="relative max-w-md w-full space-y-8 animate-fade-in">
-        {/* Logo and Title */}
-        <div className="text-center">
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-glow-lg">
-              <ChartBarIcon className="h-8 w-8 text-white" />
-            </div>
-          </div>
-          <h1 className="text-4xl font-bold gradient-text mb-2">Reputation Radar</h1>
-          <h2 className="text-xl font-semibold text-white mb-2">Welcome Back</h2>
-          <p className="text-dark-400">Monitor your brand's digital presence</p>
-        </div>
+      {/* Right Section: Login Form */}
+      <div className="flex-1 flex items-center justify-center bg-dark-900 py-12 px-6 lg:px-16">
+        <div className="max-w-md w-full space-y-8">
+          
 
-        {/* Login Form */}
-        <div className="glass-card space-y-6">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email-address" className="block text-sm font-medium text-white mb-2">
-                  Email Address
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="input-field w-full"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
-                  Password
-                </label>
-                <div className="relative">
+          {/* Login Form */}
+          <div className="glass-card space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="email-address" className="block text-sm font-medium text-white mb-2">
+                    Email Address
+                  </label>
                   <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    autoComplete="current-password"
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
                     required
-                    className="input-field w-full pr-12"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    className="input-field w-full"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-dark-400 hover:text-white transition-colors"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeSlashIcon className="h-5 w-5" />
-                    ) : (
-                      <EyeIcon className="h-5 w-5" />
-                    )}
-                  </button>
+                </div>
+
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      autoComplete="current-password"
+                      required
+                      className="input-field w-full pr-12"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-dark-400 hover:text-white transition-colors"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeSlashIcon className="h-5 w-5" />
+                      ) : (
+                        <EyeIcon className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {error && (
-              <div className="p-4 bg-danger-500/20 border border-danger-500/30 rounded-lg animate-slide-up">
-                <p className="text-danger-400 text-sm text-center font-medium">{error}</p>
-              </div>
-            )}
-
-            <button
-              type="submit"
-              className="btn-primary w-full py-3 text-lg font-semibold group"
-              disabled={loading}
-            >
-              {loading ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Signing in...</span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center space-x-2">
-                  <span>Sign In</span>
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+              {error && (
+                <div className="p-4 bg-danger-500/20 border border-danger-500/30 rounded-lg animate-slide-up">
+                  <p className="text-danger-400 text-sm text-center font-medium">{error}</p>
                 </div>
               )}
-            </button>
-          </form>
-        </div>
 
-        {/* Demo Credentials */}
-        <div className="glass-card">
-          <h3 className="text-lg font-semibold text-white mb-4 text-center">Demo Accounts</h3>
-          <div className="space-y-3">
-            {demoCredentials.map((cred, index) => (
               <button
-                key={index}
-                onClick={() => handleDemoLogin(cred.email)}
-                className="w-full p-3 bg-dark-800/50 hover:bg-dark-700/50 border border-dark-600 hover:border-primary-500/50 rounded-lg transition-all duration-200 hover:scale-[1.02] group"
+                type="submit"
+                className="btn-primary w-full py-3 text-lg font-semibold group"
+                disabled={loading}
               >
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">{cred.icon}</span>
-                  <div className="flex-1 text-left">
-                    <p className="text-white font-medium group-hover:text-primary-300 transition-colors">
-                      {cred.role}
-                    </p>
-                    <p className="text-dark-400 text-sm">{cred.email}</p>
+                {loading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Signing in...</span>
                   </div>
-                  <div className="text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                    →
+                ) : (
+                  <div className="flex items-center justify-center space-x-2">
+                    <span>Sign In</span>
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
                   </div>
-                </div>
+                )}
               </button>
-            ))}
+            </form>
           </div>
+
+          {/* Demo Credentials */}
+          {/* <div className="glass-card">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center">Demo Accounts</h3>
+            <div className="space-y-3">
+              {demoCredentials.map((cred, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleDemoLogin(cred.email)}
+                  className="w-full p-3 bg-dark-800/50 hover:bg-dark-700/50 border border-dark-600 hover:border-primary-500/50 rounded-lg transition-all duration-200 hover:scale-[1.02] group"
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="text-2xl">{cred.icon}</span>
+                    <div className="flex-1 text-left">
+                      <p className="text-white font-medium group-hover:text-primary-300 transition-colors">
+                        {cred.role}
+                      </p>
+                      <p className="text-dark-400 text-sm">{cred.email}</p>
+                    </div>
+                    <div className="text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                      →
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
           
-          <div className="mt-4 p-3 bg-dark-800/30 rounded-lg border border-dark-700">
-            <p className="text-xs text-dark-400 text-center">
-              <span className="text-primary-400 font-medium">💡 Tip:</span> All demo accounts use password: <code className="bg-dark-700 px-1 rounded text-white">password</code>
+          </div> */}
+
+          {/* Footer */}
+          <div className="text-center">
+            <p className="text-dark-500 text-sm">
+              © 2025 Reputation Radar. Monitoring Excellence.
             </p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="text-center">
-          <p className="text-dark-500 text-sm">
-            © 2024 Reputation Radar. Monitoring Excellence.
-          </p>
         </div>
       </div>
     </div>
