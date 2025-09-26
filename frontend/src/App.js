@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -24,6 +24,12 @@ const PrivateRoute = ({ children, allowedRoles }) => {
 };
 
 function App() {
+  const [refreshTime, setRefreshTime] = useState(null);
+
+  const handleRefreshTime = () => {
+    setRefreshTime(new Date());
+  };
+
   return (
     <Router>
       <AuthProvider>
@@ -34,7 +40,9 @@ function App() {
             path="/dashboard"
             element={
               <PrivateRoute allowedRoles={['pr_manager', 'social_media_analyst', 'executive', 'admin']}>
-                <Layout><DashboardPage /></Layout>
+                <Layout onRefreshTime={refreshTime}>
+                  <DashboardPage onRefreshTime={handleRefreshTime} />
+                </Layout>
               </PrivateRoute>
             }
           />

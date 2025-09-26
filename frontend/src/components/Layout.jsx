@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { HomeIcon, BellAlertIcon, MegaphoneIcon, Cog8ToothIcon, HashtagIcon, ChartBarIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, onRefreshTime }) => {
   const { userRole, logout } = useAuth();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [highlight, setHighlight] = useState(false);
+
+  useEffect(() => {
+    if (onRefreshTime) {
+      setCurrentTime(new Date());
+      setHighlight(true);
+      const timeout = setTimeout(() => setHighlight(false), 1000); // Highlight for 1 second
+      return () => clearTimeout(timeout);
+    }
+  }, [onRefreshTime]);
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: HomeIcon, roles: ['pr_manager', 'social_media_analyst', 'executive', 'admin'] },
@@ -85,8 +96,7 @@ const Layout = ({ children }) => {
               <h1 className="text-2xl font-bold text-white">
                 Welcome back, {userRole ? userRole.replace('_', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'User'}!
               </h1>
-              <p className="text-dark-400 mt-1">Monitor and manage your brand's digital presence</p>
-            </div>
+             </div>
             
             <div className="flex items-center space-x-4">
               {/* Status Indicator */}
@@ -97,8 +107,8 @@ const Layout = ({ children }) => {
               
               {/* Time */}
               <div className="text-right">
-                <p className="text-sm text-dark-300">{new Date().toLocaleDateString()}</p>
-                <p className="text-xs text-dark-400">{new Date().toLocaleTimeString()}</p>
+                <p className={`text-sm ${highlight ? 'text-accent-400' : 'text-dark-300'}`}>{currentTime.toLocaleDateString()}</p>
+                <p className={`text-xs ${highlight ? 'text-accent-400' : 'text-dark-400'}`}>{currentTime.toLocaleTimeString()}</p>
               </div>
             </div>
           </div>

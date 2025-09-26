@@ -62,7 +62,7 @@ const AdminPage = () => {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
+      <h1 className="text-3xl font-bold text-white">Admin Panel</h1>
 
       {/* Source Management */}
       <SourceManager
@@ -72,19 +72,19 @@ const AdminPage = () => {
       />
 
       {/* User Management */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
+      <div className="bg-dark-800 p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold mb-4 text-white">Manage Users</h2>
         {/* User List */}
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2">Current Users</h3>
+          <h3 className="text-lg font-medium mb-2 text-white">Current Users</h3>
           {allUsers.length === 0 ? (
-            <p className="text-gray-500">No users found.</p>
+            <p className="text-dark-400">No users found.</p>
           ) : (
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-dark-700">
               {allUsers.map((user) => (
                 <li key={user.id} className="py-3">
-                  <p className="text-sm font-medium text-gray-900">{user.email} - ({user.role})</p>
-                  <p className="text-xs text-gray-500">Joined: {new Date(user.created_at).toLocaleString()}</p>
+                  <p className="text-sm font-medium text-white">{user.email} - ({user.role})</p>
+                  <p className="text-xs text-dark-400">Joined: {new Date(user.created_at).toLocaleString()}</p>
                 </li>
               ))}
             </ul>
@@ -93,7 +93,7 @@ const AdminPage = () => {
 
         {/* Create New User Form */}
         <div>
-          <h3 className="text-lg font-medium mb-2">Create New User</h3>
+          <h3 className="text-lg font-medium mb-2 text-white">Create New User</h3>
           <form onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -105,31 +105,31 @@ const AdminPage = () => {
             e.target.reset(); // Clear form
           }} className="space-y-4">
             <div>
-              <label htmlFor="userEmail" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="userEmail" className="block text-sm font-medium text-white">Email</label>
               <input
                 type="email"
                 id="userEmail"
                 name="email"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-dark-600 rounded-md shadow-sm py-2 px-3 bg-dark-700 text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 required
               />
             </div>
             <div>
-              <label htmlFor="userPassword" className="block text-sm font-medium text-gray-700">Password</label>
+              <label htmlFor="userPassword" className="block text-sm font-medium text-white">Password</label>
               <input
                 type="password"
                 id="userPassword"
                 name="password"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-dark-600 rounded-md shadow-sm py-2 px-3 bg-dark-700 text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 required
               />
             </div>
             <div>
-              <label htmlFor="userRole" className="block text-sm font-medium text-gray-700">Role</label>
+              <label htmlFor="userRole" className="block text-sm font-medium text-white">Role</label>
               <select
                 id="userRole"
                 name="role"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-dark-600 rounded-md shadow-sm py-2 px-3 bg-dark-700 text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 required
               >
                 <option value="pr_manager">PR Manager</option>
@@ -140,12 +140,57 @@ const AdminPage = () => {
             </div>
             <button
               type="submit"
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               Create User
             </button>
           </form>
         </div>
+      </div>
+
+      {/* Add Channels Section */}
+      <div className="bg-dark-800 p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold mb-4 text-white">Add Channels</h2>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          handleAddSource({
+            name: formData.get('name'),
+            type: formData.get('type'),
+            api_config: {}, // Ensure api_config is sent
+          });
+          e.target.reset(); // Clear form
+        }} className="space-y-4">
+          <div>
+            <label htmlFor="channelName" className="block text-sm font-medium text-white">Channel Name</label>
+            <input
+              type="text"
+              id="channelName"
+              name="name"
+              className="mt-1 block w-full border border-dark-600 rounded-md shadow-sm py-2 px-3 bg-dark-700 text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="channelType" className="block text-sm font-medium text-white">Channel Type</label>
+            <select
+              id="channelType"
+              name="type"
+              className="mt-1 block w-full border border-dark-600 rounded-md shadow-sm py-2 px-3 bg-dark-700 text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+              required
+            >
+              <option value="social_media">Social Media</option>
+              <option value="review_site">Review Site</option>
+              <option value="news">News</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          >
+            Add Channel
+          </button>
+        </form>
       </div>
     </div>
   );

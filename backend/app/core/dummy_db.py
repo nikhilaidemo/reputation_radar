@@ -71,7 +71,40 @@ posts_db = [
         "sentiment_score": -0.95,
         "sentiment_label": "negative",
         "topic": "Bug Report"
-    }
+    },
+    {
+        "id": 6,
+        "source_id": 3,
+        "content": "TrustPilot review: Excellent service and quick delivery. Highly satisfied!",
+        "author": "ReviewerA",
+        "url": "http://trustpilot.com/review/1",
+        "timestamp": datetime.now() - timedelta(hours=4),
+        "sentiment_score": 0.95,
+        "sentiment_label": "positive",
+        "topic": "Customer Experience"
+    },
+    {
+        "id": 7,
+        "source_id": 3,
+        "content": "TrustPilot review: Product quality was below expectations. Disappointed.",
+        "author": "ReviewerB",
+        "url": "http://trustpilot.com/review/2",
+        "timestamp": datetime.now() - timedelta(hours=3),
+        "sentiment_score": -0.6,
+        "sentiment_label": "negative",
+        "topic": "Product Quality"
+    },
+    {
+        "id": 8,
+        "source_id": 3,
+        "content": "TrustPilot review: Average experience. Nothing remarkable.",
+        "author": "ReviewerC",
+        "url": "http://trustpilot.com/review/3",
+        "timestamp": datetime.now() - timedelta(hours=2),
+        "sentiment_score": 0.0,
+        "sentiment_label": "neutral",
+        "topic": "General Feedback"
+    },
 ]
 
 alerts_db = [
@@ -98,7 +131,31 @@ alerts_db = [
         "severity": "Low",
         "created_at": datetime.now() - timedelta(hours=2, minutes=30),
         "resolved": True
-    }
+    },
+    {
+        "id": 4,
+        "post_id": 3,
+        "alert_type": "Neutral Sentiment Trend",
+        "severity": "Medium",
+        "created_at": datetime.now() - timedelta(hours=3, minutes=15),
+        "resolved": False
+    },
+    {
+        "id": 5,
+        "post_id": 4,
+        "alert_type": "Positive Feedback Surge",
+        "severity": "Low",
+        "created_at": datetime.now() - timedelta(hours=4, minutes=45),
+        "resolved": True
+    },
+    {
+        "id": 6,
+        "post_id": 5,
+        "alert_type": "Critical Bug Report",
+        "severity": "Critical",
+        "created_at": datetime.now() - timedelta(minutes=30),
+        "resolved": False
+    },
 ]
 
 playbooks_db = [
