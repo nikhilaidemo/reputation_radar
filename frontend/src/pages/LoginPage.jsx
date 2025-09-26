@@ -55,6 +55,7 @@ const LoginPage = () => {
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/20 rounded-full blur-2xl"></div>
         </div>
         <div className="relative z-10 text-center text-white">
+          <img src="/logo.png" alt="Logo" className="mx-auto mb-4 w-80 h-80 object-contain" />
           <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">Reputation & Sentiment Radar</h1>
           <p className="text-lg drop-shadow-md">Your brand's reputation, monitored and managed.</p>
         </div>
