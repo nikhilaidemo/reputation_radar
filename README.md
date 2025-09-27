@@ -9,7 +9,7 @@ This repository contains the codebase for the Reputation & Sentiment Radar appli
 
 ## Getting Started
 
-## For Frontent
+## For Frontend
 
 cd .\frontend\
 
