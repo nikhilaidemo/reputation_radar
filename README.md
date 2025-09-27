@@ -9,10 +9,29 @@ This repository contains the codebase for the Reputation & Sentiment Radar appli
 
 ## Getting Started
 
-Follow the instructions in the `backend/README.md` and `frontend/README.md` files to set up and run each part of the application.
+## For Frontend
+
+cd .\frontend\
+
+npm install
+
+npm start
+
+## For Backend
+
+cd .\backend\
+ 
+python -m venv venv
+ 
+.\venv\Scripts\activate  
+ 
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org uvicorn fastapi  pydantic python-jose[cryptography] passlib[bcrypt] python-multipart pydantic-settings
+ 
+uvicorn app.main:app --reload --port 8000
 
 ## Important Notes
 
 - This is a dummy implementation using in-memory data for demonstration purposes.
 - Real-time data ingestion, advanced NLP, and persistent databases are not included.
 - Authentication is simplified and not production-ready.
+- The project code is currently not integrated with external APIs and models due to pricing constraints. If this product is developed further, it has the placeholders in place to replace current dummy data with real-time data from platforms and further utilise them through models.
